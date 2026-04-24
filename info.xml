@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jtlshopplugin>
+    <Name>Rapidmail</Name>
+    <Description>Anbindung an den Rapidmail Newsletterversand</Description>
+    <Author>Oliver Kamps</Author>
+    <URL>https://ollipolli.de</URL>
+    <XMLVersion>102</XMLVersion>
+    <MinShopVersion>5.2.4</MinShopVersion>
+    <MaxShopVersion>5.5.3</MaxShopVersion>
+    <PluginID>rapidmail_newsletter</PluginID>
+    <Version>1.0.3</Version>
+    <CreateDate>2025-01-10</CreateDate>
+    <Install>
+    <AdminWidget>
+            <Widget>
+                <Title>Rapidmail-Konfiguration</Title>
+                <Class>RapidmailWidget</Class>
+                <Container>center</Container>
+                <Description>Informationen zur Rapidmailanbindung.</Description>
+                <Pos>1</Pos>
+                <Expanded>1</Expanded>
+                <Active>1</Active>
+            </Widget>
+        </AdminWidget>
+        <Adminmenu>
+            <Customlink sort="1">
+                <Name>Setup</Name>
+            </Customlink>
+        </Adminmenu>
+    </Install>
+</jtlshopplugin>
