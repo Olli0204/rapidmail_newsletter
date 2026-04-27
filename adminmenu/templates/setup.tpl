@@ -216,6 +216,17 @@
                     {$feedback}
                     <button type="submit" class="btn btn-primary check-button">Speichern!</button>
                 </form>
+                <br>
+                <form method="post">
+                    {$jtl_token}
+                    <hr>
+                    <strong>Manueller Abgleich</strong>
+                    <p class="text-muted" style="font-size: 14px;">Empfänger, die bei Rapidmail abgemeldet sind, werden aus der Shop-Datenbank entfernt. Dieser Abgleich wird normalerweise automatisch täglich vom Cronjob durchgeführt.</p>
+                    {$cleanup_feedback}
+                    <button type="submit" name="manual_cleanup" value="1" class="btn btn-warning check-button">
+                        <i class="fa fa-trash"></i> Jetzt abgleichen
+                    </button>
+                </form>
             </div>
         </div>
     </div>

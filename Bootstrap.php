@@ -355,6 +355,22 @@ class Bootstrap extends Bootstrapper
                 $smarty->assign('reg_status', (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailExchangeRegistration')->cWert);
                 $smarty->assign('dereg_status', (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailExchangeDeRegistration')->cWert);
             }
+            if (Form::validateToken() && Request::postVar('manual_cleanup') !== null && $step === 4) {
+                $username = $this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailUsername')->cWert;
+                $password = $this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailPassword')->cWert;
+                $listDE   = (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId0')->cWert;
+                $listEN   = (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId1')->cWert;
+
+                $integration = new \rapidmail_integration($username, $password, [$listDE, $listEN]);
+                $removed     = $integration->removeUnsubscribedRecipientsFromShopDatabase(1)
+                             + $integration->removeUnsubscribedRecipientsFromShopDatabase(2);
+
+                if ($removed > 0) {
+                    $smarty->assign('cleanup_feedback', '<span style="color: green;">Es wurden ' . $removed . ' Empfänger erfolgreich entfernt.</span>');
+                } else {
+                    $smarty->assign('cleanup_feedback', '<span style="color: #555;">Keine abgemeldeten Empfänger gefunden.</span>');
+                }
+            }
             if ($step === 2) {
                 $smarty->assign('lists', $lists ?? []);
                 $smarty->assign('listid_de', $this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId0')->cWert)
