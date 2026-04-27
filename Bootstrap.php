@@ -230,6 +230,14 @@ class Bootstrap extends Bootstrapper
         $template = 'setup.tpl';
 
         if ($tabName === 'Setup') {
+            if (Form::validateToken() && ($goto = (int)Request::postVar('step_goto')) >= 1) {
+                if ($goto <= $step) {
+                    $step       = $goto;
+                    $obj        = new \stdClass();
+                    $obj->cWert = $step;
+                    $this->getDB()->update('tplugineinstellungen', 'cName', 'step', $obj);
+                }
+            }
             if (Form::validateToken() && ($forward = Request::postVar('step_forward')) !== null) {
                 if ($step < 4) {
                     $step++;

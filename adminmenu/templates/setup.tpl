@@ -91,32 +91,43 @@
     <div class="panel-body">
         <div class="progress-slider-body">
             <ul class="progress-slider">
-                <li data-target="#settingsCarousel" data-slide-to="0" class="set active rounded">
+                <li class="set active rounded" onclick="gotoStep(1)" style="cursor:pointer;">
                     <span class="nav-badge" title="Verbindung mit RapidMail">
                         <i class="fa fa-user"></i>
                         <span class="hidden-xs">Zugangsdaten</span>
                     </span>
                 </li>
-                <li data-target="#settingsCarousel" data-slide-to="1" class="set {if $step >= 2}active{/if}">
+                <li class="set {if $step >= 2}active{/if}" {if $step >= 2}onclick="gotoStep(2)" style="cursor:pointer;"{/if}>
                     <span class="nav-badge">
                         <i class="fa fa-list"></i>
                         <span class="hidden-xs">Empfängerlisten</span>
-
                     </span>
                 </li>
-                <li data-target="#settingsCarousel" data-slide-to="2" class="set {if $step >= 3}active{/if}">
+                <li class="set {if $step >= 3}active{/if}" {if $step >= 3}onclick="gotoStep(3)" style="cursor:pointer;"{/if}>
                     <span class="nav-badge">
                         <i class="fa fa-exchange"></i>
                         <span class="hidden-xs">Datenaustausch</span>
                     </span>
                 </li>
-                <li data-target="#settingsCarousel" data-slide-to="3" class="set {if $step >= 4}active{/if}">
+                <li class="set {if $step >= 4}active{/if}" {if $step >= 4}onclick="gotoStep(4)" style="cursor:pointer;"{/if}>
                     <span class="nav-badge">
                         <i class="fa fa-gear"></i>
                         <span class="hidden-xs">Laufende Einstellungen</span>
                     </span>
                 </li>
             </ul>
+
+            <form id="step-goto-form" method="post" style="display:none;">
+                {$jtl_token}
+                <input type="hidden" name="kPluginAdminMenu" value="{$menuID}">
+                <input type="hidden" id="step-goto-input" name="step_goto" value="">
+            </form>
+            <script>
+            function gotoStep(step) {
+                document.getElementById('step-goto-input').value = step;
+                document.getElementById('step-goto-form').submit();
+            }
+            </script>
         </div>
     </div>
 
