@@ -8,7 +8,7 @@
     <MinShopVersion>5.2.4</MinShopVersion>
     <MaxShopVersion>5.7.0</MaxShopVersion>
     <PluginID>rapidmail_newsletter</PluginID>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <CreateDate>2025-01-10</CreateDate>
     <Install>
     <AdminWidget>

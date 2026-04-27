@@ -230,6 +230,14 @@ class Bootstrap extends Bootstrapper
         $template = 'setup.tpl';
 
         if ($tabName === 'Setup') {
+            if (Form::validateToken() && ($goto = (int)Request::postVar('step_goto')) >= 1) {
+                if ($goto <= $step) {
+                    $step       = $goto;
+                    $obj        = new \stdClass();
+                    $obj->cWert = $step;
+                    $this->getDB()->update('tplugineinstellungen', 'cName', 'step', $obj);
+                }
+            }
             if (Form::validateToken() && ($forward = Request::postVar('step_forward')) !== null) {
                 if ($step < 4) {
                     $step++;
@@ -346,6 +354,22 @@ class Bootstrap extends Bootstrapper
             if ($step === 4) {
                 $smarty->assign('reg_status', (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailExchangeRegistration')->cWert);
                 $smarty->assign('dereg_status', (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailExchangeDeRegistration')->cWert);
+            }
+            if (Form::validateToken() && Request::postVar('manual_cleanup') !== null && $step === 4) {
+                $username = $this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailUsername')->cWert;
+                $password = $this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailPassword')->cWert;
+                $listDE   = (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId0')->cWert;
+                $listEN   = (int)$this->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId1')->cWert;
+
+                $integration = new \rapidmail_integration($username, $password, [$listDE, $listEN]);
+                $removed     = $integration->removeUnsubscribedRecipientsFromShopDatabase(1)
+                             + $integration->removeUnsubscribedRecipientsFromShopDatabase(2);
+
+                if ($removed > 0) {
+                    $smarty->assign('cleanup_feedback', '<span style="color: green;">Es wurden ' . $removed . ' Empfänger erfolgreich entfernt.</span>');
+                } else {
+                    $smarty->assign('cleanup_feedback', '<span style="color: #555;">Keine abgemeldeten Empfänger gefunden.</span>');
+                }
             }
             if ($step === 2) {
                 $smarty->assign('lists', $lists ?? []);
