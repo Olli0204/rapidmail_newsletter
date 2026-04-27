@@ -8,16 +8,13 @@ use JTL\Cron\Job;
 use JTL\Cron\JobInterface;
 use JTL\Cron\QueueEntry;
 use JTL\Shop;
-use JTL\Plugin\Helper;
-use JTL\Plugin\Interface;
 
 /**
- * Class TestCronJob
- * @package Plugin\jtl_test
+ * Class RapidmailCron
+ * @package Plugin\rapidmail_newsletter
  */
 class RapidmailCron extends Job
 {
-
     /**
      * @inheritdoc
      */
@@ -29,29 +26,28 @@ class RapidmailCron extends Job
         return $this;
     }
 
-    private function removeUnsubscribedUsers():bool
-    {   
-
+    private function removeUnsubscribedUsers(): bool
+    {
         $deregistration_turned_on = Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailExchangeDeRegistration')->cWert;
-        if($deregistration_turned_on == 1) {
-            $username = Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailUsername')->cWert;
-            $password = Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailPassword')->cWert;
 
-            $listDE = (int) Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId0')->cWert;
-            $listEN = (int) Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId1')->cWert;
+        if ((int)$deregistration_turned_on !== 1) {
+            return true;
+        }
 
-            $listArray = Array($listDE, $listEN);
+        $username = Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailUsername')->cWert;
+        $password = Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailPassword')->cWert;
+        $listDE   = (int)Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId0')->cWert;
+        $listEN   = (int)Shop::Container()->getDB()->select('tplugineinstellungen', 'cName', 'rapidMailRecipientListId1')->cWert;
 
-            $integration = new \rapidmail_integration($username, $password, $listArray);
+        $integration = new \rapidmail_integration($username, $password, [$listDE, $listEN]);
 
-            $result_de = $integration->removeUnsubscribedRecipientsFromShopDatabase(1);
-            $result_en = $integration->removeUnsubscribedRecipientsFromShopDatabase(2);
+        $result_de = $integration->removeUnsubscribedRecipientsFromShopDatabase(1);
+        $result_en = $integration->removeUnsubscribedRecipientsFromShopDatabase(2);
 
-            $result = $result_de + $result_en;
+        $result = $result_de + $result_en;
 
-            if($result >= 1){
-                $this->logger->warning('Rapidmail: '.$result.' Recipients have been removed from shop database.');
-            }
+        if ($result >= 1) {
+            $this->logger->warning('Rapidmail: ' . $result . ' Recipients have been removed from shop database.');
         }
 
         return true;
