@@ -79,8 +79,8 @@ class rapidmail_integration
         try {
             $recipientService->create($payload, $modifier);
             $this->addToSynchronizeTable(
-                $oNewsletterEmpfaenger->kNewsletterEmpfaenger,
-                $oNewsletterEmpfaenger->kSprache - 1
+                (int)$oNewsletterEmpfaenger->kNewsletterEmpfaenger,
+                (int)$oNewsletterEmpfaenger->kSprache - 1
             );
             return true;
         } catch (ApiClientException $e) {
@@ -105,7 +105,7 @@ class rapidmail_integration
     {
         foreach ($recipientList as $recipient) {
             if (strcasecmp($recipient['email'], $cEmail) === 0) {
-                return $recipient['id'];
+                return (int)$recipient['id'];
             }
         }
         return 0;
@@ -132,8 +132,8 @@ class rapidmail_integration
 
         if ($this->deleteRecipient($empfaengerID)) {
             $this->removeFromSynchronizeTable(
-                $oEmpfaenger->kNewsletterempfaenger,
-                $oEmpfaenger->kInternalListId
+                (int)$oEmpfaenger->kNewsletterempfaenger,
+                (int)$oEmpfaenger->kInternalListId
             );
             return true;
         }
@@ -180,7 +180,7 @@ class rapidmail_integration
             $recipient = Shop::Container()->getDB()->select('tnewsletterempfaenger', 'cEmail', $email);
             if ($recipient !== null) {
                 try {
-                    $this->removeFromSynchronizeTable($recipient->kNewsletterEmpfaenger, $recipient->kSprache - 1);
+                    $this->removeFromSynchronizeTable((int)$recipient->kNewsletterEmpfaenger, (int)$recipient->kSprache - 1);
                 } catch (\Exception $e) {
                     // entry may not exist in sync table — continue
                 }
