@@ -33,10 +33,12 @@ Nach dem Import wird die Anzahl der erfolgreich übertragenen Empfänger angezei
 ### Schritt 4 — Laufende Einstellungen
 Automatische An- und Abmeldung aktivieren oder deaktivieren:
 
-| Einstellung             | Beschreibung                                                                 |
-|-------------------------|------------------------------------------------------------------------------|
-| AutoRegistration Aktiv  | Neue Anmeldungen werden automatisch an Rapidmail übertragen                  |
-| AutoDeregistration Aktiv| Abmeldungen im Shop entfernen den Empfänger gleichzeitig aus Rapidmail       |
+| Einstellung              | Beschreibung                                                           |
+|--------------------------|------------------------------------------------------------------------|
+| AutoRegistration Aktiv   | Neue Anmeldungen werden automatisch an Rapidmail übertragen            |
+| AutoDeregistration Aktiv | Abmeldungen im Shop entfernen den Empfänger gleichzeitig aus Rapidmail |
+
+Zusätzlich steht ein **Manueller Abgleich** zur Verfügung: Ein Klick auf **Jetzt abgleichen** entfernt sofort alle Empfänger aus der Shop-Datenbank, die bei Rapidmail als abgemeldet geführt werden. Dieser Vorgang wird normalerweise automatisch täglich vom Cronjob ausgeführt.
 
 ## Admin-Widget
 
@@ -47,14 +49,23 @@ Das Dashboard-Widget zeigt auf einen Blick den Status der Konfiguration:
 - Automatische Anmeldung aktiv
 - Automatische Abmeldung aktiv
 
+## Setup-Navigation
+
+Die Schrittanzeige am oberen Rand des Setup-Assistenten ist klickbar. Bereits abgeschlossene Schritte (blau hervorgehoben) können direkt angesteuert werden — so lassen sich Einstellungen jederzeit nachträglich anpassen, ohne alle Schritte erneut durchlaufen zu müssen.
+
 ## Kompatibilität
 
 | Plugin-Version | JTL-Shop      |
 |----------------|---------------|
+| 1.2.0          | 5.2.4 – 5.7.0 |
 | 1.1.0          | 5.2.4 – 5.7.0 |
 | 1.0.3          | 5.2.4 – 5.5.3 |
 
 ## Changelog
+
+### 1.2.0
+- Setup-Schritte in der Fortschrittsanzeige sind jetzt direkt anklickbar
+- Manueller Abgleich-Button auf Schritt 4: entfernt abgemeldete Rapidmail-Empfänger sofort aus der Shop-Datenbank
 
 ### 1.1.0
 - Sicherheitslücke geschlossen: Datumseingabe im Import-Schritt wird vor SQL-Verwendung validiert
