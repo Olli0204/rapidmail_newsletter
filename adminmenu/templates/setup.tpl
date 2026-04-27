@@ -160,7 +160,7 @@
                     {$feedback}
                     <button type="submit" class="btn btn-primary check-button">Speichern!</button>
                 </form>
-                </br>
+                <br>
                 <form method="post">
                     {$jtl_token}
                     <span>Name für neue Liste</span>
@@ -195,7 +195,7 @@
                     <span>AutoRegistration</span>
                     <select class="custom-select" name="auto-reg">
                         <option value="1" {if $reg_status == 1}selected{/if}>Aktiv</option>
-                        <option value="0" {if $reg_status == 0}selected{/if}>Inatkiv</option>
+                        <option value="0" {if $reg_status == 0}selected{/if}>Inaktiv</option>
                     </select>
                     <span>AutoDeregistration</span>
                     <select class="custom-select" name="auto-dereg">
@@ -215,7 +215,7 @@
             <div class="col-sm-6 col-xl-auto text-left">
 
             </div>
-            <div class="col-sm6 col-xl-auto">
+            <div class="col-sm-6 col-xl-auto">
                 <form method="post">
                     {$jtl_token}
                     <button name="step_back" type="submit" value="step_back" class="btn btn-warning btn-block">
@@ -224,7 +224,7 @@
                     </button>
                 </form>
             </div>
-            <div class="col-sm6 col-xl-auto">
+            <div class="col-sm-6 col-xl-auto">
                 <form method="post">
                     {$jtl_token}
                     <input type="hidden" name="kPluginAdminMenu" value="{$menuID}">
