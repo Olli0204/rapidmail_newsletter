@@ -57,11 +57,15 @@ Die Schrittanzeige am oberen Rand des Setup-Assistenten ist klickbar. Bereits ab
 
 | Plugin-Version | JTL-Shop      |
 |----------------|---------------|
+| 1.2.1          | 5.2.4 – 5.8.0 |
 | 1.2.0          | 5.2.4 – 5.7.0 |
 | 1.1.0          | 5.2.4 – 5.7.0 |
 | 1.0.3          | 5.2.4 – 5.5.3 |
 
 ## Changelog
+
+### 1.2.1
+- Kompatibilität mit JTL-Shop 5.8.0 geprüft (Bootstrapper, Cron-Job, Widget, Migration, Hooks 39/40, Cron-Events und Setup-Templates unverändert), MaxShopVersion auf 5.8.0 angehoben
 
 ### 1.2.0
 - Setup-Schritte in der Fortschrittsanzeige sind jetzt direkt anklickbar
