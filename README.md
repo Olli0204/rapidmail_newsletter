@@ -57,6 +57,7 @@ Die Schrittanzeige am oberen Rand des Setup-Assistenten ist klickbar. Bereits ab
 
 | Plugin-Version | JTL-Shop      |
 |----------------|---------------|
+| 1.2.4          | 5.2.4 – 5.8.4 |
 | 1.2.3          | 5.2.4 – 5.8.3 |
 | 1.2.2          | 5.2.4 – 5.8.2 |
 | 1.2.1          | 5.2.4 – 5.8.0 |
@@ -65,6 +66,9 @@ Die Schrittanzeige am oberen Rand des Setup-Assistenten ist klickbar. Bereits ab
 | 1.0.3          | 5.2.4 – 5.5.3 |
 
 ## Changelog
+
+### 1.2.4
+- Kompatibilität mit JTL-Shop 5.8.4 geprüft: die Core-Änderungen 5.8.3 → 5.8.4 (Sicherheitsupdate) betreffen nur Lieferadressen-Prüfung im Checkout, OPC-Vorschau-Token, IP-Ermittlung hinter Proxys, CSRF-Schutz im Checkout, Rate-Limits für Wawi-Login und Backend, Backend-Benutzer- und Einstellungsverwaltung sowie Bibliotheks-Updates (Guzzle 7.15, Smarty 5.8); keine vom Plugin genutzte API und keine überschriebenen NOVA-Templates sind betroffen. MaxShopVersion auf 5.8.4 angehoben
 
 ### 1.2.3
 - Kompatibilität mit JTL-Shop 5.8.3 geprüft: die Core-Änderungen 5.8.2 → 5.8.3 (Sicherheits- und Performance-Update) betreffen nur Backend-Benutzerverwaltung/2FA/Rechteprüfung, Backend-Benachrichtigungen, das Template-Änderungsprotokoll, den Wawi-Bildabgleich, die Zahlungsart-Prüfung im Checkout sowie die SQL von Preissortierung und Filtern (MariaDB 10.11); NOVA-Templates und Plugin-API sind unverändert. MaxShopVersion auf 5.8.3 angehoben
